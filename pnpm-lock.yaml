@@ -22,6 +22,9 @@ devDependencies:
   nuxt:
     specifier: ^3.8.1
     version: registry.npmmirror.com/nuxt@3.8.1(vite@4.5.0)
+  nuxt-mdi:
+    specifier: ^1.1.1
+    version: registry.npmmirror.com/nuxt-mdi@1.1.1
   postcss:
     specifier: ^8.4.31
     version: registry.npmmirror.com/postcss@8.4.31
@@ -1184,6 +1187,12 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: true
+
+  registry.npmmirror.com/@mdi/js@7.3.67:
+    resolution: {integrity: sha512-MnRjknFqpTC6FifhGHjZ0+QYq2bAkZFQqIj8JA2AdPZbBxUvr8QSgB2yPAJ8/ob/XkR41xlg5majDR3c1JP1hw==, tarball: https://registry.npmmirror.com/@mdi/js/-/js-7.3.67.tgz}
+    name: '@mdi/js'
+    version: 7.3.67
     dev: true
 
   registry.npmmirror.com/@netlify/functions@2.4.0:
@@ -6328,6 +6337,18 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: registry.npmmirror.com/fsevents@2.3.3
+    dev: true
+
+  registry.npmmirror.com/nuxt-mdi@1.1.1:
+    resolution: {integrity: sha512-51beXwet9bs0i5kpho+VaRKCQX3BbeQEVDRd9jAULpKWEPQo1qOc+Rgn5qhMkLERcDtUvb/SCqegL98gsoD94g==, tarball: https://registry.npmmirror.com/nuxt-mdi/-/nuxt-mdi-1.1.1.tgz}
+    name: nuxt-mdi
+    version: 1.1.1
+    dependencies:
+      '@mdi/js': registry.npmmirror.com/@mdi/js@7.3.67
+      '@nuxt/kit': registry.npmmirror.com/@nuxt/kit@3.8.1
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
     dev: true
 
   registry.npmmirror.com/nuxt@3.8.1(vite@4.5.0):

@@ -1,11 +1,11 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="py-[50px]">
+  <div>
     <UContainer>
       <div class="mb-12">
-        <h1 class="text-[28px] text-colorPrimary font-semibold text-center mb-4">Quran App</h1>
-        <h1 class="text-[18px] text-colorTertiary font-normal text-center ">
+        <h1 class="text-[28px] text-colorPrimary font-bold text-center mb-4">Quran App</h1>
+        <h1 class="text-lg text-colorTertiary font-normal text-center ">
           Learn Quran and
           <br>
           Recite once everyday
@@ -107,9 +107,12 @@
         </svg>
       </div>
       <div class="flex justify-center relative -top-8">
-        <UButton class="rounded-full py-4 px-10 text-center bg-colorOrange font-semibold text-[18px]">
-          Get Started
-        </UButton>
+        <NuxtLink to="/quran">
+          <UButton
+            class="rounded-full py-4 px-10 text-center bg-colorOrange font-semibold text-lg hover:bg-colorPrimary">
+            Get Started
+          </UButton>
+        </NuxtLink>
       </div>
     </UContainer>
   </div>

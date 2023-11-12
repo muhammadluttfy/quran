@@ -2,9 +2,9 @@
   <Html>
 
   <Body>
-    <div class="font-poppins">
+    <div class="font-poppins pt-[45px]">
       <NuxtLayout>
-        <NuxtLoadingIndicator color="var(--color-primary-500)" />
+        <NuxtLoadingIndicator />
         <NuxtPage />
       </NuxtLayout>
     </div>
