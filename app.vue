@@ -2,7 +2,7 @@
   <Html>
 
   <Body>
-    <div class="font-montserrat">
+    <div class="font-poppins">
       <NuxtLayout>
         <NuxtLoadingIndicator color="var(--color-primary-500)" />
         <NuxtPage />

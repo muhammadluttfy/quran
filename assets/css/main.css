@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.font-montserrat {
-    font-family: Montserrat, sans-serif;
-}
-
-.vc-quran-color {
---vc-accent-50: #f0f8ff;
---vc-accent-100: #e0f1fe;
---vc-accent-200: #bbe3fc;
---vc-accent-300: #7fcdfa;
---vc-accent-400: #3ab4f6;
---vc-accent-500: #1094dc;
---vc-accent-600: #047bc5;
---vc-accent-700: #05619f;
---vc-accent-800: #095483;
---vc-accent-900: #0d466d;
+.font-poppins {
+    font-family: Poppins, sans-serif;
 }
