@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-
 definePageMeta({
   title: 'Islampedia',
   alias: '/quran'
