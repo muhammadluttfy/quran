@@ -1,10 +1,41 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { z } from 'zod'
+import type { FormSubmitEvent } from '#ui/types'
+
+definePageMeta({
+  title: 'Islampedia',
+  alias: '/'
+})
+
+useSeoMeta({
+  title: 'Islampedia - Learn Quran and Read it once every day',
+  ogTitle: 'Islampedia'
+})
+
+const router = useRouter()
+const isModalInputName = ref(false)
+
+const schema = z.object({
+  name: z.string().min(3, 'Name must be at least 3 characters')
+})
+
+type Schema = z.output<typeof schema>
+
+const state = reactive({
+  name: undefined,
+})
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  localStorage.setItem('initialName', event.data.name);
+  router.push('/quran');
+}
+</script>
 
 <template>
   <div>
     <UContainer>
       <div class="mb-12">
-        <h1 class="text-[28px] text-colorPrimary font-bold text-center mb-4">Quran App</h1>
+        <h1 class="text-[28px] text-colorPrimary font-bold text-center mb-4">Islampedia</h1>
         <h1 class="text-lg text-colorTertiary font-normal text-center ">
           Learn Quran and
           <br>
@@ -107,13 +138,39 @@
         </svg>
       </div>
       <div class="flex justify-center relative -top-8">
-        <NuxtLink to="/quran">
-          <UButton
-            class="rounded-full py-4 px-10 text-center bg-colorOrange font-semibold text-lg hover:bg-colorPrimary">
-            Get Started
-          </UButton>
-        </NuxtLink>
+        <UButton @click="isModalInputName = true"
+          class="rounded-full py-4 px-10 text-center bg-colorOrange font-semibold text-lg hover:bg-colorPrimary">
+          Get Started
+        </UButton>
       </div>
+
+      <!-- modal input initial name -->
+      <UModal v-model="isModalInputName" prevent-close>
+        <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+          <template #header>
+            <div class="flex items-center justify-end">
+              <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
+                @click="isModalInputName = false" />
+            </div>
+          </template>
+
+          <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+            <UFormGroup name="name">
+              <p class="text-llg text-colorTertiary font-normal text-center mb-2">Nama Panggilan</p>
+              <UInput v-model="state.name" type="text" size="xl"
+                :ui="{ padding: { xl: 'px-3 py-3' }, rounded: 'rounded-xl' }"
+                placeholder="Masukkan Nama Panggilan Anda" />
+            </UFormGroup>
+
+            <div class="flex">
+              <UButton type="submit"
+                class="mx-auto rounded-full py-4 px-10 text-center bg-colorOrange font-semibold text-lg hover:bg-colorPrimary">
+                Get Started
+              </UButton>
+            </div>
+          </UForm>
+        </UCard>
+      </UModal>
     </UContainer>
   </div>
 </template>

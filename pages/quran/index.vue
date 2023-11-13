@@ -1,4 +1,30 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+definePageMeta({
+  title: 'Islampedia',
+  alias: '/quran'
+})
+
+useSeoMeta({
+  title: 'Al - Qur\'an - Islampedia',
+  ogTitle: 'Al - Qur\'an - Islampedia'
+})
+
+const router = useRouter()
+const storedName = ref<string | null>(null)
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    storedName.value = localStorage.getItem('initialName')
+    if (!storedName.value) {
+      router.push('/')
+    }
+  }
+})
+</script>
+
 
 <template>
   <div>
@@ -11,7 +37,7 @@
             </svg>
           </div>
           <NuxtLink to="/quran">
-            <h3 class="font-bold text-xl text-colorPrimary">Quran App</h3>
+            <h3 class="font-bold text-xl text-colorPrimary">Islampedia</h3>
           </NuxtLink>
         </div>
         <div>
@@ -32,7 +58,7 @@
 
       <div class="mb-6">
         <p class="text-lg text-colorTertiary font-normal">Assalamu'alaikum</p>
-        <h3 class="text-2xl text-colorSecondary font-semibold">Muhamamd Lutfi</h3>
+        <h3 class="text-2xl text-colorSecondary font-semibold">{{ storedName }}</h3>
       </div>
 
       <!-- cart last read -->

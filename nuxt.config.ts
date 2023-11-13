@@ -14,7 +14,8 @@ export default defineNuxtConfig({
     '@nuxt/devtools',
     '@nuxt/ui',
     '@nuxtjs/google-fonts',
-    'nuxt-mdi'
+    'nuxt-mdi',
+    '@pinia/nuxt'
   ],
 
   googleFonts: {
