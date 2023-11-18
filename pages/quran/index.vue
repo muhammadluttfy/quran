@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({
+  layout: 'default',
   title: 'Islampedia',
   alias: '/quran'
 })
@@ -12,7 +13,7 @@ useSeoMeta({
 const router = useRouter()
 const storedName = ref<string | null>(null)
 
-onMounted(() => {
+onMounted(async() => {
   if (typeof window !== 'undefined') {
     storedName.value = localStorage.getItem('initialName')
     if (!storedName.value) {
@@ -20,38 +21,16 @@ onMounted(() => {
     }
   }
 })
+
+const response = await useFetch<{ data: any }>('https://equran.id/api/surat')
+const surahLists = response.data
+
 </script>
 
 
 <template>
   <div>
     <UContainer>
-      <div class="flex justify-between items-center mb-6">
-        <div class="flex items-center gap-6">
-          <div>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 6H23V8.44444H1V6ZM1 14.5556H15.6667V17H1V14.5556Z" fill="#8789A3" />
-            </svg>
-          </div>
-          <NuxtLink to="/quran">
-            <h3 class="font-bold text-xl text-colorPrimary">Islampedia</h3>
-          </NuxtLink>
-        </div>
-        <div>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_1102_1014)">
-              <path
-                d="M18.031 16.617L22.314 20.899L20.899 22.314L16.617 18.031C15.0237 19.3082 13.042 20.0029 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20.0029 13.042 19.3082 15.0237 18.031 16.617ZM16.025 15.875C17.2941 14.5699 18.0029 12.8204 18 11C18 7.132 14.867 4 11 4C7.132 4 4 7.132 4 11C4 14.867 7.132 18 11 18C12.8204 18.0029 14.5699 17.2941 15.875 16.025L16.025 15.875Z"
-                fill="#8789A3" />
-            </g>
-            <defs>
-              <clipPath id="clip0_1102_1014">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-        </div>
-      </div>
 
       <div class="mb-6">
         <p class="text-lg text-colorTertiary font-normal">Assalamu'alaikum</p>
@@ -144,24 +123,28 @@ onMounted(() => {
       <div class="mb-5">
         <h3 class="text-xl font-semibold text-colorSecondary mb-2">Pilih Bacaan</h3>
         <div class="grid grid-cols-12 gap-2">
-          <div
+          <NuxtLink to="/quran"
             class="col-span-6 lg:col-span-3 bg-gradient-to-br from-green-400 to-green-600 text-white rounded-lg pl-2 pr-5 pt-5 pb-2 font-semibold text-sm">
-            Al-Qur'an</div>
+            Al-Qur'an
+          </NuxtLink>
           <div
             class="col-span-6 lg:col-span-3 bg-gradient-to-br from-blue-400 to-blue-600 text-white rounded-lg pl-2 pr-5 pt-5 pb-2 font-semibold text-sm">
-            Kumpulan Doa</div>
+            Kumpulan Doa
+          </div>
           <div
             class="col-span-6 lg:col-span-3 bg-gradient-to-br from-purple-400 to-purple-600 text-white rounded-lg pl-2 pr-5 pt-5 pb-2 font-semibold text-sm">
-            Juz Amma</div>
+            Juz Amma
+          </div>
           <div
             class="col-span-6 lg:col-span-3 bg-gradient-to-br from-pink-400 to-pink-600 text-white rounded-lg pl-2 pr-5 pt-5 pb-2 font-semibold text-sm">
-            Ayat Favoritku</div>
+            Ayat Favoritku
+          </div>
         </div>
       </div>
 
-      <!-- quran list -->
-      <div>
-        <NuxtLink to="/">
+      <!-- surah list -->
+      <div v-for="(surah, index) in surahLists" :key="index">
+        <NuxtLink :to="`/quran/${surah.nomor}`">
           <div class="flex justify-between items-center border-b py-4">
             <div class="flex items-center gap-4">
               <div class=" flex items-center justify-center relative">
@@ -177,85 +160,22 @@ onMounted(() => {
                     </clipPath>
                   </defs>
                 </svg>
-                <span
-                  class="text-colorSecondary text-sm font-semibold absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">1</span>
+                <span class="text-colorSecondary text-sm font-semibold absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  {{ surah.nomor }}
+                </span>
               </div>
 
               <div>
-                <h5 class="text-colorSecondary font-semibold">Al-Fatihah</h5>
+                <h5 class="text-colorSecondary font-semibold">
+                  {{ surah?.nama_latin }}
+                </h5>
                 <p class="text-colorTertiary">
-                  Makkiyah • 7 Ayat
+                  {{ surah.tempat_turun }} • {{ surah.jumlah_ayat }} Ayat
                 </p>
               </div>
             </div>
             <div dir="rtl">
-              <p class="text-colorPrimary text-2xl">الفاتحة</p>
-            </div>
-          </div>
-        </NuxtLink>
-
-        <NuxtLink to="/">
-          <div class="flex justify-between items-center border-b py-4">
-            <div class="flex items-center gap-4">
-              <div class=" flex items-center justify-center relative">
-                <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_1102_1081)">
-                    <path
-                      d="M31.4531 12.6219V5.97656C31.4531 5.39409 30.9809 4.92188 30.3984 4.92188H23.7531L19.1192 0.307336C18.7076 -0.102445 18.0423 -0.102445 17.6307 0.307336L12.9969 4.92188H6.35156C5.76909 4.92188 5.29688 5.39409 5.29688 5.97656V12.6219L0.682336 17.2558C0.272555 17.6674 0.272555 18.3327 0.682336 18.7443L5.29688 23.3781V30.0234C5.29688 30.6059 5.76909 31.0781 6.35156 31.0781H12.9969L17.6307 35.6927C17.8365 35.8976 18.1058 36 18.375 36C18.6442 36 18.9135 35.8976 19.1192 35.6927L23.7531 31.0781H30.3984C30.9809 31.0781 31.4531 30.6059 31.4531 30.0234V23.3781L36.0677 18.7443C36.4774 18.3327 36.4774 17.6674 36.0677 17.2558L31.4531 12.6219ZM29.6511 22.1983C29.4543 22.396 29.3438 22.6635 29.3438 22.9425V28.9688H23.3175C23.0386 28.9688 22.771 29.0793 22.5734 29.2761L18.375 33.4569L14.1767 29.2761C13.979 29.0793 13.7115 28.9688 13.4325 28.9688H7.40625V22.9425C7.40625 22.6636 7.29572 22.396 7.09891 22.1984L2.91813 18L7.09891 13.8017C7.29572 13.604 7.40625 13.3365 7.40625 13.0575V7.03125H13.4325C13.7114 7.03125 13.979 6.92072 14.1766 6.72391L18.375 2.54313L22.5734 6.72391C22.7711 6.92072 23.0386 7.03125 23.3175 7.03125H29.3438V13.0575C29.3438 13.3364 29.4543 13.604 29.6511 13.8016L33.8319 18L29.6511 22.1983Z"
-                      fill="#994EF8" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_1102_1081">
-                      <rect width="36" height="36" fill="white" transform="translate(0.375)" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="text-colorSecondary text-sm font-semibold absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">2</span>
-              </div>
-
-              <div>
-                <h5 class="text-colorSecondary font-semibold">Al-Baqarah</h5>
-                <p class="text-colorTertiary">
-                  Madaniyah • 286 Ayat
-                </p>
-              </div>
-            </div>
-            <div dir="rtl">
-              <p class="text-colorPrimary text-2xl">البقرة</p>
-            </div>
-          </div>
-        </NuxtLink>
-
-        <NuxtLink to="/">
-          <div class="flex justify-between items-center border-b py-4">
-            <div class="flex items-center gap-4">
-              <div class=" flex items-center justify-center relative">
-                <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_1102_1081)">
-                    <path
-                      d="M31.4531 12.6219V5.97656C31.4531 5.39409 30.9809 4.92188 30.3984 4.92188H23.7531L19.1192 0.307336C18.7076 -0.102445 18.0423 -0.102445 17.6307 0.307336L12.9969 4.92188H6.35156C5.76909 4.92188 5.29688 5.39409 5.29688 5.97656V12.6219L0.682336 17.2558C0.272555 17.6674 0.272555 18.3327 0.682336 18.7443L5.29688 23.3781V30.0234C5.29688 30.6059 5.76909 31.0781 6.35156 31.0781H12.9969L17.6307 35.6927C17.8365 35.8976 18.1058 36 18.375 36C18.6442 36 18.9135 35.8976 19.1192 35.6927L23.7531 31.0781H30.3984C30.9809 31.0781 31.4531 30.6059 31.4531 30.0234V23.3781L36.0677 18.7443C36.4774 18.3327 36.4774 17.6674 36.0677 17.2558L31.4531 12.6219ZM29.6511 22.1983C29.4543 22.396 29.3438 22.6635 29.3438 22.9425V28.9688H23.3175C23.0386 28.9688 22.771 29.0793 22.5734 29.2761L18.375 33.4569L14.1767 29.2761C13.979 29.0793 13.7115 28.9688 13.4325 28.9688H7.40625V22.9425C7.40625 22.6636 7.29572 22.396 7.09891 22.1984L2.91813 18L7.09891 13.8017C7.29572 13.604 7.40625 13.3365 7.40625 13.0575V7.03125H13.4325C13.7114 7.03125 13.979 6.92072 14.1766 6.72391L18.375 2.54313L22.5734 6.72391C22.7711 6.92072 23.0386 7.03125 23.3175 7.03125H29.3438V13.0575C29.3438 13.3364 29.4543 13.604 29.6511 13.8016L33.8319 18L29.6511 22.1983Z"
-                      fill="#994EF8" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_1102_1081">
-                      <rect width="36" height="36" fill="white" transform="translate(0.375)" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="text-colorSecondary text-sm font-semibold absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">3</span>
-              </div>
-
-              <div>
-                <h5 class="text-colorSecondary font-semibold">Ali 'Imran</h5>
-                <p class="text-colorTertiary">
-                  Madaniyah • 200 Ayat
-                </p>
-              </div>
-            </div>
-            <div dir="rtl">
-              <p class="text-colorPrimary text-2xl">آل عمران</p>
+              <p class="text-colorPrimary text-2xl">{{ surah.nama }}</p>
             </div>
           </div>
         </NuxtLink>

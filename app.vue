@@ -1,8 +1,7 @@
 <template>
-  <Html>
-
+  <Html lang="id">
   <Body>
-    <div class="font-poppins pt-[45px]">
+    <div class="font-poppins pt-[20px]">
       <NuxtLayout>
         <NuxtLoadingIndicator />
         <NuxtPage />

@@ -3,6 +3,7 @@ import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 
 definePageMeta({
+  layout: 'empty',
   title: 'Islampedia',
   alias: '/'
 })
@@ -156,7 +157,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
           <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
             <UFormGroup name="name">
-              <p class="text-llg text-colorTertiary font-normal text-center mb-2">Nama Panggilan</p>
+              <p class="text-base text-colorTertiary font-normal text-center mb-2">Nama Panggilan</p>
               <UInput v-model="state.name" type="text" size="xl"
                 :ui="{ padding: { xl: 'px-3 py-3' }, rounded: 'rounded-xl' }"
                 placeholder="Masukkan Nama Panggilan Anda" />
