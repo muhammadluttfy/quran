@@ -15,7 +15,13 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxtjs/google-fonts',
     'nuxt-mdi',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    ['@nuxtjs/algolia', {
+      apiKey: '2488550c6a66047bf5a3121a764290d4',
+      applicationId: 'HAAF2JBD4Q',
+      // apiKey: process.env.ALGOLIA_SEARCH_API_KEY,
+      // applicationId: process.env.ALGOLIA_APPLICATION_ID,
+    }]
   ],
 
   googleFonts: {
@@ -24,7 +30,7 @@ export default defineNuxtConfig({
     },
     useStylesheet: true
   },
-  
+
   colorMode: {
     preference: 'light'
   },
