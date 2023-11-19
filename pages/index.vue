@@ -146,26 +146,18 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       </div>
 
       <!-- modal input initial name -->
-      <UModal v-model="isModalInputName" prevent-close>
+      <UModal v-model="isModalInputName" class="modal-custom-input-name">
         <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
-          <template #header>
-            <div class="flex items-center justify-end">
-              <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
-                @click="isModalInputName = false" />
-            </div>
-          </template>
-
           <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
             <UFormGroup name="name">
-              <p class="text-base text-colorTertiary font-normal text-center mb-2">Nama Panggilan</p>
-              <UInput v-model="state.name" type="text" size="xl"
+              <UInput v-model="state.name" color="indigo" type="text" size="xl"
                 :ui="{ padding: { xl: 'px-3 py-3' }, rounded: 'rounded-xl' }"
                 placeholder="Masukkan Nama Panggilan Anda" />
             </UFormGroup>
 
             <div class="flex">
               <UButton type="submit"
-                class="mx-auto rounded-full py-4 px-10 text-center bg-colorOrange font-semibold text-lg hover:bg-colorPrimary">
+                class="mx-auto rounded-full py-2 px-6 text-center bg-colorOrange font-semibold text-lg hover:bg-colorPrimary">
                 Get Started
               </UButton>
             </div>
@@ -176,4 +168,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.modal-custom-input-name .min-h-full {
+  align-items: center !important;
+  min-height: 100% !important;
+}
+</style>

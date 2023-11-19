@@ -24,7 +24,6 @@ onMounted(async() => {
 
 const response = await useFetch<{ data: any }>('https://equran.id/api/surat')
 const surahLists = response.data
-
 </script>
 
 
